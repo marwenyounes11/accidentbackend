@@ -1,0 +1,23 @@
+package io.oa.accidentincident.repository;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.web.bind.annotation.CrossOrigin;
+
+import io.oa.accidentincident.entity.Accident;
+import io.oa.accidentincident.entity.Agent;
+
+@RepositoryRestResource
+@CrossOrigin("*")
+public interface AgentRepository extends JpaRepository<Agent, Long> {
+	@Query("select a from Agent a where a.name like :x")
+	public Page<Agent> chercherAgent(@Param("x")String mc,Pageable pageable);
+	
+	@Query("select a from Agent a ")
+	public Page<Agent> pageAgent(Pageable pageable);
+	
+}
